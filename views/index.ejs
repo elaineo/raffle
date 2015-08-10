@@ -1,0 +1,17 @@
+<% layout( 'layout' ) -%>
+
+<h1><%= title %></h1>
+<form action="/create" method="post" accept-charset="utf-8">
+  <input type="text" name="content" />
+</form>
+
+<% raffles.forEach( function( raffle ){ %>
+  <p>
+    <span><%= raffle.content %></span>
+    <span>
+      <a href="/destroy/<%= raffle._id %>" title="Delete this item">Delete</a>
+    </span>
+  </p>
+
+<% }); %>
+
