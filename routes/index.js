@@ -19,17 +19,32 @@ exports.index = function(req, res){
 };
 
 exports.create = function ( req, res ){
-  new Raffle({
-    name       : req.body.username,
-    email      : req.body.email,
-    address    : req.body.address,
-    bitcoin    : req.body.bitcoin
-  }).save( function( err, raffle, count ){
-    var error = '';
-    if ( typeof err !== 'undefined' && err )
-      error = "?error=" + err
-    res.redirect( '/'+error );
+  // check if exists
+  Raffle.aggregate(
+    { $group: {
+        _id: null,
+        total:       { $sum: "$count" }
+    }}, function(err, result) { console.log(result); });
+  Raffle.find({email : req.body.email}, function (err, docs) {
+    if (!docs.length){
+      new Raffle({
+        name       : req.body.username,
+        email      : req.body.email,
+        address    : req.body.address,
+        bitcoin    : req.body.bitcoin
+      }).save( function( err, raffle, count ){
+        var error = '';
+        if ( typeof err !== 'undefined' && err )
+          error = "?error=" + err
+        res.redirect( '/'+error );
+      });
+    } else {
+      Raffle.addTicket();
+      var error = '?error=User exists. Ticket count incremented.'
+      res.redirect( '/'+error );
+    }
   });
+
 };
 
 exports.destroy = function ( req, res ){

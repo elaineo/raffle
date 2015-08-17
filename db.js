@@ -42,18 +42,4 @@ Raffle.pre('save', function(next){
 });
 
 
-Raffle.pre('save', function (next) {
-    raffleDB.find({email : this.email}, function (err, docs) {
-        console.log(docs);
-        if (!docs.length){
-            next();
-        }else{
-            this.count++;
-            console.log(this);
-            console.log('user exists: ',docs[0].name);
-            next(new Error("User exists. Ticket count incremented."));
-        }
-    });
-}) ;
-
 mongoose.connect( 'mongodb://localhost/express-raffle' );
