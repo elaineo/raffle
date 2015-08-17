@@ -1,17 +1,39 @@
 <% layout( 'layout' ) -%>
+<% include base %>
 
-<h1><%= title %></h1>
-<form action="/create" method="post" accept-charset="utf-8">
-  <input type="text" name="content" />
-</form>
-
+<h2>There are currently <%= total %> tickets.</h2>
+<h2>You have <%= total %> tickets, or percentage of the total.</h2>
+<h2>Rules</h2>
+<ul>
+  <li>Raffle only open to Bay Area residents. </li>
+  <li>There is no limit to the number times you may request a ticket. However, no individual may hold more than 5% of the total outstanding tickets at any time.</li>
+  <li>Each raffle ticket is a binding contract that you will accept a prize if you win.</li>
+  <li>Raffle tickets may not be sold or transferred.</li>
+</ul>
 <% raffles.forEach( function( raffle ){ %>
   <p>
-    <span><%= raffle.content %></span>
+    <span><%= raffle.email %></span>
+    <span><%= raffle.count %></span>
     <span>
       <a href="/destroy/<%= raffle._id %>" title="Delete this item">Delete</a>
     </span>
   </p>
 
 <% }); %>
+<div id="card">
+  <h2>Get a Ticket </h2>
+  <% if (typeof error != 'undefined'){ %>
+  <span class="error"><%= error %></span>
+  <% } %>
+  <form action="/create" method="post" accept-charset="utf-8">
+      <input type="text" id="username" name="username" placeholder="Name"/>
+      <input type="text" id="email" name="email" placeholder="Email" />
+      <input type="text" id="home" name="address" placeholder="Home Address" />
+      <input type="text" id="bitcoin" name="bitcoin" placeholder="Bitcoin Address" />
+      <input type="checkbox" id="tos" name="tos" />
+      <label for="tos">I accept the <a href="">Terms of service</a></label>
 
+      <!--  // // // // // // // // // //  -->
+      <input type="submit" id="submit" name="submit"/>
+  </form>
+</div>
