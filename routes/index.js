@@ -29,29 +29,13 @@ exports.index = function(req, res){
 };
 
 exports.find = function(req, res){
-  var total = 0;
-  Raffle.aggregate(
-    { $group: {
-        _id: null,
-        total:       { $sum: "$count" }
-    }}, function(err, result) { total = result[0].total;  });
   Raffle.find( {email : req.body.findemail}, function (err, docs) {
     if (!docs.length){
       var error = '?load_error=User does not exist. Sign up for a ticket.'
       res.redirect( '/#getone'+error );
     } else {
-      console.log(docs[0])
-      var userpct =  Number((100*docs[0].count / total).toFixed(2));
-      res.render( 'index', {
-        title : 'Elaine\'s Reverse Raffle',
-        usertotal : docs[0].count,
-        userpct: userpct,
-        user_id: docs[0]._id,
-        email: docs[0].email,
-        total: total
-      })
+      res.redirect( '/show/'+docs[0]._id );
     }
-
   });
 
 };
