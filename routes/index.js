@@ -39,7 +39,13 @@ exports.create = function ( req, res ){
         res.redirect( '/'+error );
       });
     } else {
-      Raffle.addTicket();
+      Raffle.findOneAndUpdate(
+      {email: req.body.email},
+      { $inc: { count: 1 }},
+      { new: false, upsert: false}, function(err, person) {
+        if (err) {
+          console.log('got an error');
+         } console.log(person)}  );
       var error = '?error=User exists. Ticket count incremented.'
       res.redirect( '/'+error );
     }
