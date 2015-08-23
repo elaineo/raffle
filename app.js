@@ -5,6 +5,7 @@
 require( './db' );
 
 var express = require('express');
+var cookieParser = require('cookie-parser')
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
@@ -22,6 +23,7 @@ app.use( express.bodyParser());
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(cookieParser());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,6 +39,7 @@ app.get( '/destroy/:id', routes.destroy );
 app.get( '/add/:id', routes.add );
 app.get( '/show/:id', routes.show );
 
+
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Server listening on port ' + app.get('port'));
 });

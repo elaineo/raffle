@@ -16,6 +16,9 @@ function sum( obj ) {
 exports.index = function(req, res){
   var load_error = req.query.load_error;
   var get_error = req.query.get_error;
+  var user_id = req.cookies.user_id;
+  if (typeof user_id != 'undefined')
+    res.redirect( '/show/'+user_id+'#load' );
   Raffle.find( function ( err, raffles, count ){
     var total = sum(raffles);
     res.render( 'index', {
@@ -34,6 +37,8 @@ exports.find = function(req, res){
       var error = '?load_error=User does not exist. Sign up for a ticket.'
       res.redirect( '/#getone'+error );
     } else {
+      //set cookie
+      res.cookie('user_id', docs[0]._id);
       res.redirect( '/show/'+docs[0]._id+'#load' );
     }
   });
