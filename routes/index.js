@@ -34,7 +34,7 @@ exports.find = function(req, res){
       var error = '?load_error=User does not exist. Sign up for a ticket.'
       res.redirect( '/#getone'+error );
     } else {
-      res.redirect( '/show/'+docs[0]._id );
+      res.redirect( '/show/'+docs[0]._id+'#load' );
     }
   });
 
@@ -58,7 +58,7 @@ exports.create = function ( req, res ){
         var error = '';
         if ( typeof err !== 'undefined' && err )
           error = "?get_error=" + err
-        res.redirect( '/'+error );
+        res.redirect( '/show/'+raffle._id+ error + '#load');
       });
     } else {
       console.log(docs);
@@ -84,6 +84,7 @@ exports.show = function(req, res){
       title : 'Elaine\'s Reverse Raffle',
       usertotal : r.count,
       userpct: userpct,
+      username: r.name,
       user_id: r._id,
       email: r.email,
       total: total,
@@ -117,11 +118,11 @@ exports.add = function ( req, res ){
       var error = ''
      // user cannot have more than 5%
      if (r.count+1 > 0.05*(total+1))
-       error="?load_error=You are not allowed to have more than 5 of the total tickets."
+       error="?load_error=You are not allowed to have more than 5 percent of the total tickets."
      else {
        r.count++;
        r.save();
      }
-     res.redirect( '/show/'+ req.params.id+error);
+     res.redirect( '/show/'+ req.params.id + error+ '#load');
    });
 };

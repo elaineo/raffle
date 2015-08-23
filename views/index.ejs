@@ -13,7 +13,11 @@
 
 <div id="load">
   <a name="load"></a>
+  <% if (typeof username != 'undefined'){ %>
+  <h2><%= username %></h2>
+  <% } else { %>
   <h2>Load Ticket Account </h2>
+  <% } %>
   <% if (typeof load_error != 'undefined'){ %>
   <span class="error"><%= load_error %></span>
   <% } %>
