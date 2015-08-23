@@ -35,14 +35,16 @@ exports.find = function(req, res){
     }}, function(err, result) { total = result[0].total;  });
   Raffle.find( {email : req.body.findemail}, function (err, docs) {
     if (!docs.length){
-      var error = '?error=User exists. Ticket count incremented.'
-      res.redirect( '/'+error );
+      var error = '?error=User does not exist. Sign up for a ticket.'
+      res.redirect( '/#getone'+error );
     } else {
+      console.log(docs[0])
       var userpct =  100*docs[0].count / total;
       res.render( 'index', {
         title : 'Elaine\'s Reverse Raffle',
         usertotal : docs[0].count,
         userpct: userpct,
+        email: docs[0].email,
         total: total
       })
     }

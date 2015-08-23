@@ -58,8 +58,8 @@ h1,h2,h3,h4 { color: #4747A3; }
     margin: auto;
     padding-top: 120px;
 }
-#load input {
-    width: 50%;
+#findemail {
+    width: 300px;
     float: left;
 }
 #card {
@@ -116,7 +116,6 @@ input[type=submit] {
     color: #ecf0f1;
     border: 0;
     border-bottom: 2px solid #6C6CB5;
-    margin: 10px 0 0;
 }
 input[type=checkbox] {
     display: block;
@@ -193,5 +192,9 @@ input[type=submit]:focus {
     position: relative;
     top: 1px;
     border-bottom: 1px solid;
+}
+.inline {
+    display:inline;
+    float:left;
 }
 

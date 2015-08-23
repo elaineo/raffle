@@ -16,18 +16,28 @@
   <h2>Load Ticket Account </h2>
   <% if (typeof usertotal != 'undefined'){ %>
   <h2>You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
+  <%= email %>
+    <form action="/add" method="post" accept-charset="utf-8">
+        <div>
+        <input type="submit" id="go" name="Go"/>
+        </div>
+    </form>
   <% } %>
   <% if (typeof error != 'undefined'){ %>
   <span class="error"><%= error %></span>
   <% } %>
   <form action="/" method="post" accept-charset="utf-8">
-      <input type="text" id="findemail" name="findemail" placeholder="Email" />
-      <!--  // // // // // // // // // //  -->
-      <input type="submit" id="submit" name="Go"/>
+      <div>
+      <span class="inline">
+      <input type="text" id="findemail" name="findemail" placeholder="Email" /><span>
+      <span class="inline">
+      <input type="submit" name="Go" walue="Go"/></span>
+      </div>
   </form>
 </div>
 
 <div id="card">
+  <a name="getone"></a>
   <h2>Get a Ticket </h2>
   <% if (typeof error != 'undefined'){ %>
   <span class="error"><%= error %></span>
