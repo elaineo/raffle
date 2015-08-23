@@ -6,7 +6,6 @@ var mongoose = require( 'mongoose' );
 var Raffle     = mongoose.model( 'Raffle' );
 
 function sum( obj ) {
-  console.log(obj)
   var sum = 0;
   for( var el in obj ) {
       sum += parseFloat( obj[el].count );
@@ -28,16 +27,28 @@ exports.index = function(req, res){
 };
 
 exports.find = function(req, res){
-  var error = req.query.error;
-  Raffle.find( {email : req.body.email}, function (err, docs) {
-    var total = raffles.length;
-    res.render( 'index', {
-      title : 'Elaine\'s Reverse Raffle',
-      raffles : raffles,
-      total : total,
-      error : error
-    });
+  var total = 0;
+  Raffle.aggregate(
+    { $group: {
+        _id: null,
+        total:       { $sum: "$count" }
+    }}, function(err, result) { total = result[0].total;  });
+  Raffle.find( {email : req.body.findemail}, function (err, docs) {
+    if (!docs.length){
+      var error = '?error=User exists. Ticket count incremented.'
+      res.redirect( '/'+error );
+    } else {
+      var userpct =  100*docs[0].count / total;
+      res.render( 'index', {
+        title : 'Elaine\'s Reverse Raffle',
+        usertotal : docs[0].count,
+        userpct: userpct,
+        total: total
+      })
+    }
+
   });
+
 };
 
 exports.create = function ( req, res ){
