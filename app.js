@@ -31,6 +31,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.post('/', routes.find);
 app.post( '/create', routes.create );
 app.get( '/destroy/:id', routes.destroy );
 
