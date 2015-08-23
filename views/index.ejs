@@ -2,7 +2,6 @@
 <% include base %>
 
 <h2>There are currently <%= total %> tickets.</h2>
-<h2>You have <%= total %> tickets, or percentage of the total.</h2>
 <h2>Rules</h2>
 <ul>
   <li>Raffle only open to Bay Area residents. </li>
@@ -20,6 +19,21 @@
   </p>
 
 <% }); %>
+<div id="load">
+  <h2>Load Ticket Account </h2>
+  <% if (typeof usertotal != 'undefined'){ %>
+  <h2>You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
+  <% } %>
+  <% if (typeof error != 'undefined'){ %>
+  <span class="error"><%= error %></span>
+  <% } %>
+  <form action="/find" method="post" accept-charset="utf-8">
+      <input type="text" id="findemail" name="findemail" placeholder="Email" />
+      <!--  // // // // // // // // // //  -->
+      <input type="submit" id="submit" name="Go"/>
+  </form>
+</div>
+
 <div id="card">
   <h2>Get a Ticket </h2>
   <% if (typeof error != 'undefined'){ %>
