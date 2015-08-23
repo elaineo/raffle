@@ -20,7 +20,7 @@
   <% if (typeof user_id != 'undefined'){ %>
   <h2>You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
   <%= email %>
-    <form action="/add/<%= user_id %>" method="post" accept-charset="utf-8">
+    <form action="/add/<%= user_id %>" method="get" accept-charset="utf-8">
         <div>
         <input type="submit" id="go" name="Go" value="Get More Tickets"/>
         </div>

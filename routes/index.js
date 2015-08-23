@@ -103,13 +103,25 @@ exports.destroy = function ( req, res ){
 };
 
 exports.add = function ( req, res ){
-  Raffle.findOneAndUpdate(
-    {"_id": req.params.id},
-    { $inc: { count: 1 }},
-    { new: false, upsert: false}, function(err, r) {
-    if (err) {
-      console.log('got an error');
+  var total = 0;
+  Raffle.aggregate(
+    { $group: {
+        _id: null,
+        total:       { $sum: "$count" }
+    }}, function(err, result) { total = result[0].total;  });
+
+  Raffle.findById( req.params.id, function(err, r) {
+    if (err)
+      var error = "?load_error="+err
+    else
+      var error = ''
+     // user cannot have more than 5%
+     if (r.count+1 > 0.05*(total+1))
+       error="?load_error=You are not allowed to have more than 5 of the total tickets."
+     else {
+       r.count++;
+       r.save();
      }
-     res.redirect( '/show/'+ req.params.id);
+     res.redirect( '/show/'+ req.params.id+error);
    });
 };
