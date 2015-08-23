@@ -14,26 +14,27 @@
 <div id="load">
   <a name="load"></a>
   <h2>Load Ticket Account </h2>
+  <% if (typeof error != 'undefined'){ %>
+  <span class="error"><%= error %></span>
+  <% } %>
   <% if (typeof usertotal != 'undefined'){ %>
   <h2>You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
   <%= email %>
     <form action="/add" method="post" accept-charset="utf-8">
         <div>
-        <input type="submit" id="go" name="Go"/>
+        <input type="submit" id="go" name="Go" value="Get More Tickets"/>
         </div>
     </form>
-  <% } %>
-  <% if (typeof error != 'undefined'){ %>
-  <span class="error"><%= error %></span>
-  <% } %>
+  <% } else { %>
   <form action="/" method="post" accept-charset="utf-8">
       <div>
       <span class="inline">
       <input type="text" id="findemail" name="findemail" placeholder="Email" /><span>
       <span class="inline">
-      <input type="submit" name="Go" walue="Go"/></span>
+      <input type="submit" name="Go" value="Go"/></span>
       </div>
   </form>
+  <% } %>
 </div>
 
 <div id="card">
