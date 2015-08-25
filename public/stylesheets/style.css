@@ -46,6 +46,21 @@ body {
     font-size: 16px;
 }
 h1,h2,h3,h4 { color: #4747A3; }
+.subhead { color: #A22059;}
+img.head {
+    max-width:100px;
+    vertical-align: middle;
+}
+button {
+    cursor: pointer;
+    margin: 30px 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    background: #90c843;
+    color: #ecf0f1;
+    border: 0;
+    border-bottom: 2px solid #6C6CB5;
+}
 .content {
     margin: 40px 40px 40px 40px;
     position: relative;
@@ -57,6 +72,7 @@ h1,h2,h3,h4 { color: #4747A3; }
     max-width: 600px;
     margin: auto;
     padding-top: 120px;
+    padding-bottom:120px;
 }
 #findemail {
     width: 300px;
@@ -65,10 +81,7 @@ h1,h2,h3,h4 { color: #4747A3; }
 #card {
     max-width: 600px;
     margin: auto;
-    padding-top: 120px;
-    padding-bottom: 120px;
-    margin-top: 120px;
-    margin-bottom: 120px;
+    padding-top: 130px;
 }
 #card h2 {
     text-shadow: 0 1px 0 #4747A3;
@@ -84,6 +97,7 @@ h1,h2,h3,h4 { color: #4747A3; }
     -moz-box-shadow: 0 1px 0 #4747A3;
     box-shadow: 0 1px 0 #4747A3;
 }
+#card form {min-height:300px;}
 #card a { color: #4747A3 }
 #card label {
     font-size: 12px;

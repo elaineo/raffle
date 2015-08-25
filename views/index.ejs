@@ -1,45 +1,24 @@
 <% layout( 'layout' ) -%>
 <% include base %>
 
-<h2>There are currently <%= total %> tickets.</h2>
+<h2 class="subhead">There are currently <%= total %> tickets in the raffle.</h2>
+<center><a href="#rules"><button>Rules</button></a>
+<a href="#getone"><button>Get a Ticket</button></a>
+<a href="#load"><button>View Your Tickets</button></a></center>
+<br>
+<a name="rules"></a>
+<a href="http://pbfcomics.com/67/" target="_blank"><img src="/images/comic.gif"></a>
+<br>
 <h2>Rules</h2>
 <ul>
-  <li>Raffle only open to Bay Area residents. </li>
+  <li>Elaine's Reverse Raffle is only open to Bay Area residents. </li>
   <li>There is no limit to the number times you may request a ticket. However, no individual may hold more than 5% of the total outstanding tickets at any time.</li>
   <li>Each raffle ticket is a binding contract that you will accept a prize if you win.</li>
   <li>Raffle tickets may not be sold or transferred.</li>
 </ul>
 
 
-<div id="load">
-  <a name="load"></a>
-  <% if (typeof username != 'undefined'){ %>
-  <h2><%= username %></h2>
-  <% } else { %>
-  <h2>Load Ticket Account </h2>
-  <% } %>
-  <% if (typeof load_error != 'undefined'){ %>
-  <span class="error"><%= load_error %></span>
-  <% } %>
-  <% if (typeof user_id != 'undefined'){ %>
-  <h2>You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
-  <%= email %>
-    <form action="/add/<%= user_id %>" method="get" accept-charset="utf-8">
-        <div>
-        <input type="submit" id="go" name="Go" value="Get More Tickets"/>
-        </div>
-    </form>
-  <% } else { %>
-  <form action="/" method="post" accept-charset="utf-8">
-      <div>
-      <span class="inline">
-      <input type="text" id="findemail" name="findemail" placeholder="Email" /><span>
-      <span class="inline">
-      <input type="submit" name="Go" value="Go"/></span>
-      </div>
-  </form>
-  <% } %>
-</div>
+
 
 
 <div id="card">
@@ -62,8 +41,43 @@
       <!--  // // // // // // // // // //  -->
       <input type="submit" id="submit" name="submit"/>
   </form>
+  <h4>Please Note:</h4>
+  <ul>
+    <li><small>Your home address is used to verify that you live in the Bay Area. Non Bay-Area residents will lose their tickets.</small></li>
+    <li><small>Raffle ticket payment will be made to the provided Bitcoin address.</small></li>
+  </ul>
+
 </div>
-<br>
+
+<div id="load">
+  <a name="load"></a>
+  <% if (typeof username != 'undefined'){ %>
+  <h2><%= username %></h2>
+  <% } else { %>
+  <h2>Load Ticket Account </h2>
+  <% } %>
+  <% if (typeof load_error != 'undefined'){ %>
+  <span class="error"><%= load_error %></span>
+  <% } %>
+  <% if (typeof user_id != 'undefined'){ %>
+  <h2 class="subhead">You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
+  <%= email %>
+    <form action="/add/<%= user_id %>" method="get" accept-charset="utf-8">
+        <div>
+        <input type="submit" id="go" name="Go" value="Get More Tickets"/>
+        </div>
+    </form>
+  <% } else { %>
+  <form action="/" method="post" accept-charset="utf-8">
+      <div>
+      <span class="inline">
+      <input type="text" id="findemail" name="findemail" placeholder="Email" /><span>
+      <span class="inline">
+      <input type="submit" name="Go" value="Go"/></span>
+      </div>
+  </form>
+  <% } %>
+</div>
 
 
 <script>
