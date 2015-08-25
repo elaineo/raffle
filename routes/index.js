@@ -46,11 +46,11 @@ exports.find = function(req, res){
 };
 
 exports.eraine = function(req, res){
-  Raffle.find( function (err, docs) {
+  Raffle.find( function (err, raffles) {
     res.render( 'eraine', {
       title : 'Elaine\'s Stuff',
       raffles : raffles,
-      total : total
+      total : sum(raffles)
           });
   });
 
@@ -121,7 +121,7 @@ exports.show = function(req, res){
 exports.destroy = function ( req, res ){
   Raffle.findById( req.params.id, function ( err, r ){
     r.remove( function ( err, r ){
-      res.redirect( '/' );
+      res.redirect( '/eraine' );
     });
   });
 };
