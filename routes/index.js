@@ -61,7 +61,6 @@ exports.create = function ( req, res ){
   req.assert('username', 'Name is required').notEmpty();           //Validate name
   req.assert('email', 'A valid email is required').isEmail();  //Validate email
   req.assert('address', 'Address is required').notEmpty();
-  req.assert('bitcoin', 'Bitcoin Address is required').notEmpty();
 
   var errors = req.validationErrors();
   if (errors)  {   //Display errors to user
