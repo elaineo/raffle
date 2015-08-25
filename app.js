@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser')
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var expressValidator = require('express-validator');
 var app = express();
 var engine  = require( 'ejs-locals' );
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 

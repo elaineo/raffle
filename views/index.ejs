@@ -48,12 +48,15 @@
   <% if (typeof get_error != 'undefined'){ %>
   <span class="error"><%= get_error %></span>
   <% } %>
+  <% if (typeof errors != 'undefined'){ %>
+  <span class="error"><%= errors %></span>
+  <% } %>
   <form action="/create" method="post" accept-charset="utf-8">
-      <input type="text" id="username" name="username" placeholder="Name"/>
-      <input type="text" id="email" name="email" placeholder="Email" />
-      <input type="text" id="home" name="address" placeholder="Home Address" />
-      <input type="text" id="bitcoin" name="bitcoin" placeholder="Bitcoin Address" />
-      <input type="checkbox" id="tos" name="tos" />
+      <input type="text" id="username" name="username" placeholder="Name" required />
+      <input type="text" id="email" name="email" placeholder="Email" required />
+      <input type="text" id="home" name="address" placeholder="Home Address" required />
+      <input type="text" id="bitcoin" name="bitcoin" placeholder="Bitcoin Address" required />
+      <input type="checkbox" id="tos" name="tos" required />
       <label for="tos">I accept the <a href="">Terms of service</a></label>
 
       <!--  // // // // // // // // // //  -->

@@ -57,12 +57,19 @@ exports.eraine = function(req, res){
 };
 
 exports.create = function ( req, res ){
-  // check if exists
-  Raffle.aggregate(
-    { $group: {
-        _id: null,
-        total:       { $sum: "$count" }
-    }}, function(err, result) { console.log(result); });
+  //validate form
+  req.assert('username', 'Name is required').notEmpty();           //Validate name
+  req.assert('email', 'A valid email is required').isEmail();  //Validate email
+  req.assert('address', 'Address is required').notEmpty();
+  req.assert('bitcoin', 'Bitcoin Address is required').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors)  {   //Display errors to user
+      var error = '?get_error=' + errors[0].msg
+      res.redirect('/' + error );
+      return
+  }
+
   Raffle.find({email : req.body.email}, function (err, docs) {
     if (!docs.length){
       new Raffle({
