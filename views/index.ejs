@@ -54,7 +54,7 @@
   <form action="/create" method="post" accept-charset="utf-8">
       <input type="text" id="username" name="username" placeholder="Name" required />
       <input type="text" id="email" name="email" placeholder="Email" required />
-      <input type="text" id="home" name="address" placeholder="Home Address" required />
+      <input type="text" id="address" name="address" placeholder="Home Address" required autocomplete="off" />
       <input type="text" id="bitcoin" name="bitcoin" placeholder="Bitcoin Address" required />
       <input type="checkbox" id="tos" name="tos" required />
       <label for="tos">I accept the <a href="">Terms of service</a></label>
@@ -64,3 +64,31 @@
   </form>
 </div>
 <br>
+
+
+<script>
+
+var autocomplete;
+
+function initialize() {
+  var autoOptions = { componentRestrictions: {country: 'us'}  };
+  autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('address')),
+      autoOptions);
+  google.maps.event.addListener(autocomplete, 'place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  console.log('listen');
+  var place = autocomplete.getPlace();
+
+  console.log(place);
+  if (!place.geometry) {
+    return;
+  }
+  $('input#address').val(place.formatted_address);
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initialize"
+        async defer></script>
