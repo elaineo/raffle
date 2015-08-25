@@ -1,0 +1,14 @@
+<% layout( 'layout' ) -%>
+<% include base %>
+
+<h2>There are currently <%= total %> tickets.</h2>
+<% raffles.forEach( function( raffle ){ %>
+    <span><%= raffle.name %></span>
+    <span><%= raffle.email %></span>
+    <span><%= raffle.address %></span>
+    <span><%= raffle.count %></span>
+    <span><%= raffle.updated_at %></span>
+   <a href="/destroy/<%= raffle._id %>" title="Delete this item">Delete</a>
+
+ <% }); %>
+<br>

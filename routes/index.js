@@ -45,6 +45,17 @@ exports.find = function(req, res){
 
 };
 
+exports.eraine = function(req, res){
+  Raffle.find( function (err, docs) {
+    res.render( 'eraine', {
+      title : 'Elaine\'s Stuff',
+      raffles : raffles,
+      total : total
+          });
+  });
+
+};
+
 exports.create = function ( req, res ){
   // check if exists
   Raffle.aggregate(

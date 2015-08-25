@@ -38,7 +38,7 @@ app.post( '/create', routes.create );
 app.get( '/destroy/:id', routes.destroy );
 app.get( '/add/:id', routes.add );
 app.get( '/show/:id', routes.show );
-
+app.get( '/eraine', routes.eraine );
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Server listening on port ' + app.get('port'));
