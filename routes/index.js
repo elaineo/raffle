@@ -21,10 +21,12 @@ exports.index = function(req, res){
     res.redirect( '/show/'+user_id+'#load' );
   Raffle.find( function ( err, raffles, count ){
     var total = sum(raffles);
+    var price = Number((1 / total).toFixed(3));
     res.render( 'index', {
       title : 'Elaine\'s Reverse Raffle',
       raffles : raffles,
       total : total,
+      price : price,
       get_error : get_error,
       load_error : load_error
     });
@@ -80,11 +82,13 @@ exports.create = function ( req, res ){
         var error = '';
         if ( typeof err !== 'undefined' && err )
           error = "?get_error=" + err
+        res.cookie('user_id', raffle._id);
         res.redirect( '/show/'+raffle._id+ error + '#load');
       });
     } else {
       console.log(docs);
       var error = '?get_error=User exists. Ticket count incremented.'
+      res.cookie('user_id', docs[0]._id);
       res.redirect('/add/'+ docs[0]._id + error );
     }
   });
@@ -102,6 +106,7 @@ exports.show = function(req, res){
     }}, function(err, result) { total = result[0].total;  });
   Raffle.findById( req.params.id, function ( err, r ){
     var userpct =  Number((100*r.count / total).toFixed(2));
+    var price = Number((1 / total).toFixed(3));
     res.render( 'index', {
       title : 'Elaine\'s Reverse Raffle',
       usertotal : r.count,
@@ -109,6 +114,7 @@ exports.show = function(req, res){
       username: r.name,
       user_id: r._id,
       email: r.email,
+      price : price,
       total: total,
       get_error : get_error,
       load_error : load_error
@@ -140,7 +146,7 @@ exports.add = function ( req, res ){
       var error = ''
      // user cannot have more than 5%
      if (r.count+1 > 0.05*(total+1))
-       error="?load_error=You are not allowed to have more than 5 percent of the total tickets."
+       error="?load_error=You are not allowed to have more than 5 percent of the total tickets. Try again later."
      else {
        r.count++;
        r.save();
