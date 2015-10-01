@@ -1,10 +1,9 @@
 <% layout( 'layout' ) -%>
 <% include base %>
 
-<h2 class="subhead">There are currently <%= total %> tickets in the raffle.</h2>
-<h3 class="subhead">Each ticket is worth <%= price %> BTC</h3>
+<h2 class="subhead">Time's up! Winners will be announced shortly, stay tuned...</h2>
+<h3 class="subhead">There are currently <%= total %> tickets in the raffle. Each ticket is worth <%= price %> BTC</h3>
 <center><a href="#rules"><button>Rules</button></a>
-<a href="#getone"><button>Get a Ticket</button></a>
 <a href="#load"><button>View Your Tickets</button></a></center>
 <br>
 <a name="rules"></a>
@@ -20,7 +19,7 @@
 </ul>
 
 
-
+<!--
 
 
 <div id="card">
@@ -40,7 +39,7 @@
       <input type="checkbox" id="tos" name="tos" required />
       <label for="tos">I accept the <a href="#rules">Terms of service</a></label>
 
-      <!--  // // // // // // // // // //  -->
+
       <input type="submit" id="submit" name="submit"/>
   </form>
   <h4>Please Note:</h4>
@@ -50,6 +49,7 @@
   </ul>
 
 </div>
+-->
 
 <div id="load">
   <a name="load"></a>
@@ -64,11 +64,13 @@
   <% if (typeof user_id != 'undefined'){ %>
   <h2 class="subhead">You have <%= usertotal %> tickets, or <%= userpct %>% of the total.</h2>
   <%= email %>
+  <!--
     <form action="/add/<%= user_id %>" method="get" accept-charset="utf-8">
         <div>
         <input type="submit" id="go" name="Go" value="Get More Tickets"/>
         </div>
     </form>
+    -->
   <% } else { %>
   <form action="/" method="post" accept-charset="utf-8">
       <div>
@@ -79,6 +81,7 @@
       </div>
   </form>
   <% } %>
+
 </div>
 
 
